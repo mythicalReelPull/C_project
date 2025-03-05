@@ -65,6 +65,7 @@ void placeOrder(const char *restaurantName, const char *filename) {
         printf("%d. Back to Restaurant Menu\n", itemCount + 1);
         printf("Enter item number to order: ");
         scanf("%d", &choice);
+        //FFF
 
         if (choice > 0 && choice <= itemCount) {
             if (orderCount < MAX_ORDERS) {
