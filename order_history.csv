@@ -1,3 +1,10 @@
 
-"anto","street 4","00056","Four Cheeses Pizza from Restaurant 1 (x1); Margherita Pizza from Restaurant 1 (x1); Greek Pizza with Feta from Restaurant 1 (x1); Seafood Pizza from Restaurant 1 (x1)"
-"anto","str","010","Margherita Pizza from Restaurant 1 (x1); Margherita Pizza from Restaurant 1 (x1); Four Cheeses Pizza from Restaurant 1 (x1); Greek Salad - $14 from Restaurant 1 (x2)"
+"antonio","street 43","223-456-302","Tacos - $9 from Restaurant 3 (x1); Burrito - $11 from Restaurant 3 (x2); Nachos - $7 from Restaurant 3 (x1)"
+"ion","str 50","342-123-345","Tacos - $9 from Restaurant 3 (x1); Burrito - $11 from Restaurant 3 (x6)"
+"gheorghe","str5","234-345-345","Ramen - $12 from Restaurant 2 (x8); Sushi - $15 from Restaurant 2 (x2); Tempura - $10 from Restaurant 2 (x5); Pepperoni Pizza - 10$ from Restaurant 1 (x1)"
+"radu","str 6","345-234-121","Pepperoni Pizza - 10$ from Restaurant 1 (x2) - $0.00","$0.00"
+"test","test","test","Pepperoni Pizza - $10 from Restaurant 1 (x2) - $20.00; Burrata Pizza - $15 from Restaurant 1 (x1) - $15.00","$35.00"
+"test","str4","234-453-234","Four Cheeses Pizza - $12 from Restaurant 1 (x1) - $12.00; Margherita Pizza - $9 from Restaurant 1 (x1) - $9.00; Greek Pizza with Feta - $14 from Restaurant 1 (x1) - $14.00","$35.00"
+"test","str 5","024-234-123","Pepperoni Pizza - $10 from Restaurant 1 (x1) - $10.00; Quatro Formaggi Pizza - $12 from Restaurant 1 (x1) - $12.00; Margherita Pizza - $9 from Restaurant 1 (x1) - $9.00","$31.00"
+"test","test","test","Greek Salad - $14 from Restaurant 1 (x2) - $28.00; Quatro Formaggi Pizza - $12 from Restaurant 1 (x1) - $12.00; Burrata Pizza - $15 from Restaurant 1 (x3) - $45.00; Tempura - $10 from Restaurant 2 (x1) - $10.00","$95.00"
+"","","","Sushi - $15 from Restaurant 2 (x1) - $15.00","$15.00"

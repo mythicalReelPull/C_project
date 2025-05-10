@@ -1,6 +1,6 @@
-Pepperoni Pizza
-Four Cheeses Pizza
-Margherita Pizza
-Greek Pizza with Feta
-Seafood Pizza
-Burrata Pizza
+Pepperoni Pizza - $10
+Quatro Formaggi Pizza - $12
+Margherita Pizza - $9
+Greek Pizza with Feta - $14
+Seafood Pizza - $20
+Burrata Pizza - $15
