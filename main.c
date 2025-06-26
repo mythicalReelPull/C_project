@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 
 #define COLOR_RESET "\033[0m"
 #define COLOR_GREEN "\033[32m"
@@ -111,7 +112,7 @@ void customizePizza(const char *filename) {
             // Check if the pizza already exists in the orders
             for (int i = 0; i < orderCount; i++) {
                 if (strcmp(orders[i].item, toppings[choice - 1]) == 0 &&
-                    strcmp(orders[i].restaurant, "Restaurant 1") == 0) {
+                    strcmp(orders[i].restaurant, "Flavor Foundry") == 0) {
                     orders[i].quantity++;
                     found = 1;
                     printf("Increased quantity of " COLOR_BOLD_YELLOW "%s" COLOR_RESET " to " COLOR_GREEN "%d\n" COLOR_RESET,
@@ -124,7 +125,7 @@ void customizePizza(const char *filename) {
             if (!found) {
                 if (orderCount < MAX_ORDERS) {
                     strcpy(orders[orderCount].item, toppings[choice - 1]);
-                    strcpy(orders[orderCount].restaurant, "Restaurant 1");
+                    strcpy(orders[orderCount].restaurant, "Flavor Foundry");
                     orders[orderCount].quantity = 1;
                     orderCount++;
                     printf("Pizza with " COLOR_BOLD_YELLOW "%s" COLOR_RESET " added to order successfully!\n", toppings[choice - 1]);
@@ -181,18 +182,46 @@ void processOrder() { //saves order to file
     clearScreen();
     printf(COLOR_YELLOW "==== Order Placement ====\n" COLOR_RESET);
 
-    printf(COLOR_CYAN "Enter your name " COLOR_RESET "(example: " COLOR_GREEN "anto" COLOR_RESET "): ");
-    getchar();
-    fgets(info.name, sizeof(info.name), stdin);
-    info.name[strcspn(info.name, "\n")] = 0;
+    do {
+        printf(COLOR_CYAN "Enter your name " COLOR_RESET "(example: " COLOR_GREEN "anto" COLOR_RESET "): ");
+        getchar();
+        fgets(info.name, sizeof(info.name), stdin);
+        info.name[strcspn(info.name, "\n")] = 0;
 
-    printf(COLOR_CYAN "Enter delivery address " COLOR_RESET "(example: " COLOR_GREEN "street 1" COLOR_RESET "): ");
-    fgets(info.address, sizeof(info.address), stdin);
-    info.address[strcspn(info.address, "\n")] = 0;
+        if (strlen(info.name) == 0) {
+            printf(COLOR_RED "Name cannot be empty! Please try again.\n" COLOR_RESET);
+        }
+    } while (strlen(info.name) == 0);
 
-    printf(COLOR_CYAN "Enter phone number " COLOR_RESET "(example: " COLOR_GREEN "zzz-zzz-zzz" COLOR_RESET "): ");
-    fgets(info.phone, sizeof(info.phone), stdin);
-    info.phone[strcspn(info.phone, "\n")] = 0;
+    printf(COLOR_CYAN "Enter street name/number " COLOR_RESET "(example: " COLOR_GREEN "Mihai Eminescu" COLOR_RESET "): ");
+    char temp[250];
+    fgets(temp, sizeof(temp), stdin);
+    temp[strcspn(temp, "\n")] = 0;
+    snprintf(info.address, sizeof(info.address), "street %s", temp);
+
+    do {
+        printf(COLOR_CYAN "Enter phone number " COLOR_RESET "(9 digits only): ");
+        fgets(info.phone, sizeof(info.phone), stdin);
+        info.phone[strcspn(info.phone, "\n")] = 0;
+
+        int valid = 1;
+        if (strlen(info.phone) != 9) {
+            valid = 0;
+        } else {
+            for (int i = 0; info.phone[i] != '\0'; i++) {
+                if (!isdigit(info.phone[i])) {
+                    valid = 0;
+                    break;
+                }
+            }
+        }
+
+        if (!valid) {
+            printf(COLOR_RED "Invalid input! Please enter exactly 9 digits.\n" COLOR_RESET);
+        } else {
+            break;
+        }
+    } while (1);
 
     // Save the order to the file
     saveOrder(info);
@@ -472,7 +501,8 @@ void menuRestaurant(const char *restaurantName, const char *filename) {
         printf(COLOR_YELLOW"==== Menu of: %s ==== \n" COLOR_RESET, restaurantName);
         printf("1. View Menu items\n");
         printf("2. Order from this Restaurant\n");
-        if (strcmp(restaurantName, "Restaurant 1") == 0) { //added an optional view for choosing to customize a pizza
+        if (strcmp(restaurantName, "Flavor Foundry"
+                                   "") == 0) { //added an optional view for choosing to customize a pizza
             printf("3. Customize a Pizza\n");
             printf("4. Back to Main Menu\n");
         }else {
@@ -499,7 +529,7 @@ void menuRestaurant(const char *restaurantName, const char *filename) {
                 placeOrder(restaurantName, filename);
                 break;
             case 3:
-                if(strcmp(restaurantName, "Restaurant 1") == 0) {
+                if(strcmp(restaurantName, "Flavor Foundry") == 0) {
                     clearScreen();
                     printf(COLOR_YELLOW"==== Customize a Pizza ====\n" COLOR_RESET);
                     customizePizza("pizza_toppings.txt");
@@ -509,7 +539,7 @@ void menuRestaurant(const char *restaurantName, const char *filename) {
                 }
                 break;
             case 4:
-                if (strcmp(restaurantName, "Restaurant 1") == 0) {
+                if (strcmp(restaurantName, "Flavor Foundry") == 0) {
                     clearScreen();
                     printf("\nReturning to Main Menu...\n");
                 } else {
@@ -523,8 +553,8 @@ void menuRestaurant(const char *restaurantName, const char *filename) {
                 printf(COLOR_RED "Invalid choice. Try Again\n" COLOR_RESET);
                 getchar();
         }
-    } while ((strcmp(restaurantName, "Restaurant 1") == 0 && choice != 4) ||
-         (strcmp(restaurantName, "Restaurant 1") != 0 && choice != 3));
+    } while ((strcmp(restaurantName, "Flavor Foundry") == 0 && choice != 4) ||
+         (strcmp(restaurantName, "Flavor Foundry") != 0 && choice != 3));
 }
 
 int main(void) {
@@ -533,24 +563,25 @@ int main(void) {
         clearScreen();
         printf(COLOR_YELLOW"\nWelcome to the Food Ordering App!\n" COLOR_RESET);
         printf("================================\n");
-        for (int i = 0; i < 3; i++) {
-            printf("%d. Restaurant" COLOR_BOLD_YELLOW" %d\n" COLOR_RESET, i + 1, i + 1);
-        }
+        printf("1. Flavor Foundry\n");
+        printf("2. Bistro Byte\n");
+        printf("3. Taco Tango\n");
         printf("4. View order history\n");
         printf("5. Exit\n");
         printf("================================\n");
         printf("Enter your choice(1 trough 5): ");
         scanf("%d", &choice);
         switch (choice) {
-            case 1: menuRestaurant("Restaurant 1", "restaurant1.txt");
+            case 1: menuRestaurant("Flavor Foundry", "restaurant1.txt");
                 break;
-            case 2: menuRestaurant("Restaurant 2", "restaurant2.txt");
+            case 2: menuRestaurant("Bistro Byte"
+                                   "", "restaurant2.txt");
                 break;
-            case 3: menuRestaurant("Restaurant 3", "restaurant3.txt");
+            case 3: menuRestaurant("Taco Tango", "restaurant3.txt");
                 break;
             case 4: viewOrderHistory();
                 break;
-            default:printf("Exiting... Bye!:)\n");
+            default:printf(COLOR_GREEN"Exiting... Bye!:)"COLOR_RESET"\n");
             getchar();
         }
     }while (choice != 5);
